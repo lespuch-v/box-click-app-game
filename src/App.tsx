@@ -31,8 +31,12 @@ function App() {
     }
   }, [countDown, isGameOn]);
 
+  const handleBoxClick = (id) => {
+    console.log(`Box clicked ${id}`);
+  };
+
   const boxes = Array.from({ length: numberOfBoxes }, (_, index) => (
-    <Boxes key={index} isGameOn={isGameOn} stopGame={stopGame} />
+    <Boxes key={index} id={index} onBoxClick={handleBoxClick} isGameOn={isGameOn} />
   ));
 
   return (

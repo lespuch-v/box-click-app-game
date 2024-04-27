@@ -4,15 +4,20 @@ import './Boxes.css';
 interface IBoxes {
   isGameOn: boolean;
   canBeMarked?: boolean;
-  stopGame: () => void;
+  id: number;
+  onBoxClick: (id: number) => void;
 }
 
-const Boxes: React.FC<IBoxes> = ({ isGameOn, stopGame, canBeMarked }) => {
+const Boxes: React.FC<IBoxes> = ({ isGameOn, onBoxClick, id }) => {
+  function boxClick() {
+    onBoxClick(id);
+  }
+
   return (
     <div>
       {isGameOn && (
         <div>
-          <div className="box"></div>
+          <div onClick={boxClick} className="box"></div>
         </div>
       )}
     </div>
