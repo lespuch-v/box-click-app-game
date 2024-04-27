@@ -3,12 +3,13 @@ import StartGame from './components/Startgame';
 import './App.css';
 import Boxes from './components/Boxes';
 import CounterStartGame from './components/CounterStartGame';
+import EndGame from './components/EndGame';
 
 function App() {
   const [isGameOn, setIsGameOn] = useState(false);
   const [score, setScore] = useState(0);
   const [countDown, setCountDown] = useState(7);
-  const [numberOfBoxes, setNumberOfBoxes] = useState(1);
+  const [numberOfBoxes, setNumberOfBoxes] = useState(9);
 
   const startGame = () => {
     setIsGameOn(true);
@@ -30,12 +31,17 @@ function App() {
     }
   }, [countDown, isGameOn]);
 
+  const boxes = Array.from({ length: numberOfBoxes }, (_, index) => (
+    <Boxes key={index} isGameOn={isGameOn} stopGame={stopGame} />
+  ));
+
   return (
     <>
       <main className="main-container">
+        <div className="game-container">{countDown === 0 && isGameOn ? <EndGame stopGame={stopGame} /> : null}</div>
         <StartGame isGameOn={isGameOn} startGame={startGame} />
-        {countDown === 0 ? <Boxes isGameOn={isGameOn} stopGame={stopGame} /> : null}
-        <CounterStartGame seconds={countDown} />
+        <div className="box-container">{countDown === 0 ? boxes : null}</div>
+        {isGameOn && countDown > 0 ? <CounterStartGame seconds={countDown} /> : null}
       </main>
     </>
   );
