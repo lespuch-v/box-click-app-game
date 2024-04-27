@@ -1,0 +1,20 @@
+.counter-container {
+  animation: pulse 2s infinite;
+}
+.counter-Heading {
+  font-size: 5rem;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    color: rgb(228, 172, 172);
+  }
+  40% {
+    transform: scale(1.7);
+    color: rgb(70, 180, 253);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

@@ -1,11 +1,12 @@
 import React from 'react';
+import './CounterStartGame.css'
 
 interface ICounterStartGame {
   seconds: number;
 }
 
 const CounterStartGame: React.FC<ICounterStartGame> = ({ seconds }) => {
-  return <div>{seconds > 0 ? <h1>{seconds}</h1> : null}</div>;
+  return <div className='counter-container'>{seconds > 0 ? <h1 className='counter-Heading'>{seconds}</h1> : null}</div>;
 };
 
 export default CounterStartGame;
