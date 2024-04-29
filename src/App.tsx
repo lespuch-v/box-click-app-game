@@ -48,11 +48,11 @@ function App() {
       <main className="main-container">
         <div className="game-container">
           {countToStartDown === 0 && isGameOn ? (
-            <>
+            <div className='container-game-stats'>
               <EndGame stopGame={stopGame} />
               <Timer isGameOn={isGameOn} />
               <Score score={score} />
-            </>
+            </div>
           ) : null}
         </div>
         <StartGame isGameOn={isGameOn} startGame={startGame} />

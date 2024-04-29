@@ -10,8 +10,8 @@ const Timer: React.FC<ITimer> = ({ isGameOn }) => {
 
   return (
     isGameOn && (
-      <div>
-        <h1>0:00</h1>
+      <div className='timer-container'>
+        <h1 className='timer-heading'>0:00</h1>
       </div>
     )
   );

@@ -61,3 +61,10 @@
   display: flex;
   margin-left: 35px;
 }
+
+.container-game-stats {
+  width: 380px;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+}
