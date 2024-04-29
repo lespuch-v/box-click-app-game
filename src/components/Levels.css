@@ -1,0 +1,9 @@
+.level-container {
+  font-size: 3rem;
+  text-align: left;
+}
+
+.level-heading {
+  color: rgb(252, 126, 126);
+  margin-left: 20px;
+}

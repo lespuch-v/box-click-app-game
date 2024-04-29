@@ -3,17 +3,21 @@ import StartGame from './components/Startgame';
 import './App.css';
 import Boxes from './components/Boxes';
 import CounterStartGame from './components/CounterStartGame';
+import Levels from './components/Levels';
 import EndGame from './components/EndGame';
+import Timer from './components/Timer';
+import Score from './components/Score';
 
 function App() {
   const [isGameOn, setIsGameOn] = useState(false);
   const [score, setScore] = useState(0);
-  const [countDown, setCountDown] = useState(7);
+  const [lavel, setLevel] = useState(0);
+  const [countToStartDown, setCountToStartDown] = useState(7);
   const [numberOfBoxes, setNumberOfBoxes] = useState(9);
 
   const startGame = () => {
     setIsGameOn(true);
-    setCountDown(7);
+    setCountToStartDown(7);
   };
 
   const stopGame = () => {
@@ -21,15 +25,15 @@ function App() {
   };
 
   useEffect(() => {
-    if (countDown > 0 && isGameOn) {
-      console.log(countDown);
+    if (countToStartDown > 0 && isGameOn) {
+      console.log(countToStartDown);
 
       const timer = setTimeout(() => {
-        setCountDown(countDown - 1);
+        setCountToStartDown(countToStartDown - 1);
       }, 1000);
       return () => clearTimeout(timer);
     }
-  }, [countDown, isGameOn]);
+  }, [countToStartDown, isGameOn]);
 
   const handleBoxClick = (id) => {
     console.log(`Box clicked ${id}`);
@@ -42,10 +46,22 @@ function App() {
   return (
     <>
       <main className="main-container">
-        <div className="game-container">{countDown === 0 && isGameOn ? <EndGame stopGame={stopGame} /> : null}</div>
+        <div className="game-container">
+          {countToStartDown === 0 && isGameOn ? (
+            <>
+              <EndGame stopGame={stopGame} />
+              <Timer isGameOn={isGameOn} />
+              <Score score={score} />
+            </>
+          ) : null}
+        </div>
         <StartGame isGameOn={isGameOn} startGame={startGame} />
-        <div className="box-container">{countDown === 0 ? boxes : null}</div>
-        {isGameOn && countDown > 0 ? <CounterStartGame seconds={countDown} /> : null}
+        <div>
+          <div className="box-container">{countToStartDown === 0 ? boxes : null}</div>
+          {countToStartDown === 0 && isGameOn ? <Levels level={lavel} /> : null}
+        </div>
+
+        {isGameOn && countToStartDown > 0 ? <CounterStartGame seconds={countToStartDown} /> : null}
       </main>
     </>
   );
