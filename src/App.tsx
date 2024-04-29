@@ -7,11 +7,13 @@ import Levels from './components/Levels';
 import EndGame from './components/EndGame';
 import Timer from './components/Timer';
 import Score from './components/Score';
+import randomEmoji from './utils';
 
 function App() {
   const [isGameOn, setIsGameOn] = useState(false);
   const [score, setScore] = useState(0);
   const [lavel, setLevel] = useState(0);
+  const [emoji, setEmoji] = useState('');
   const [countToStartDown, setCountToStartDown] = useState(7);
   const [numberOfBoxes, setNumberOfBoxes] = useState(9);
 
@@ -25,13 +27,17 @@ function App() {
   };
 
   useEffect(() => {
+    if (isGameOn) {
+      setEmoji(randomEmoji());
+    }
+
     if (countToStartDown > 0 && isGameOn) {
       console.log(countToStartDown);
 
-      const timer = setTimeout(() => {
+      const startGameTimer = setTimeout(() => {
         setCountToStartDown(countToStartDown - 1);
       }, 1000);
-      return () => clearTimeout(timer);
+      return () => clearTimeout(startGameTimer);
     }
   }, [countToStartDown, isGameOn]);
 
@@ -40,7 +46,7 @@ function App() {
   };
 
   const boxes = Array.from({ length: numberOfBoxes }, (_, index) => (
-    <Boxes key={index} id={index} onBoxClick={handleBoxClick} isGameOn={isGameOn} />
+    <Boxes key={index} id={index} onBoxClick={handleBoxClick} emoji={emoji} isGameOn={isGameOn} />
   ));
 
   return (
@@ -48,7 +54,7 @@ function App() {
       <main className="main-container">
         <div className="game-container">
           {countToStartDown === 0 && isGameOn ? (
-            <div className='container-game-stats'>
+            <div className="container-game-stats">
               <EndGame stopGame={stopGame} />
               <Timer isGameOn={isGameOn} />
               <Score score={score} />
